@@ -1160,7 +1160,7 @@ client.on('message', message => {
           let command = msg.content.toLowerCase().split(" ")[0];
           command = command.slice(prefix.length)
         
-          if (command === `$$play`) {
+          if (command === `play`) {
             const voiceChannel = msg.member.voiceChannel;
             if (!voiceChannel) return msg.channel.send('يجب توآجد حضرتك بروم صوتي .');
             const permissions = voiceChannel.permissionsFor(msg.client.user);
@@ -1221,12 +1221,12 @@ client.on('message', message => {
         
               return handleVideo(video, msg, voiceChannel);
             }//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
-          } else if (command === `$$skip`) {
+          } else if (command === `skip`) {
             if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
             if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لتجآوزه');
             serverQueue.connection.dispatcher.end('تم تجآوز هذآ المقطع');
             return undefined;
-          } else if (command === `$$stop`) {//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
+          } else if (command === `stop`) {//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
             if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
             if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لإيقآفه');
             serverQueue.songs = [];
@@ -1244,7 +1244,7 @@ client.on('message', message => {
             const embedNP = new Discord.RichEmbed()
           .setDescription(`:notes: الان يتم تشغيل : **${serverQueue.songs[0].title}**`)
             return msg.channel.sendEmbed(embedNP);
-          } else if (command === `$$queue`) {
+          } else if (command === `queue`) {
             //by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
             if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
             let index = 0;
@@ -1255,7 +1255,7 @@ client.on('message', message => {
         ${serverQueue.songs.map(song => `**${++index} -** ${song.title}`).join('\n')}
         **الان يتم تشغيل** ${serverQueue.songs[0].title}`)
             return msg.channel.sendEmbed(embedqu);
-          } else if (command === `$$pause`) {
+          } else if (command === `pause`) {
             if (serverQueue && serverQueue.playing) {
               serverQueue.playing = false;
               serverQueue.connection.dispatcher.pause();
