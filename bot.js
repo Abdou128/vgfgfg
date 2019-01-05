@@ -1592,4 +1592,4 @@ message.channel.sendEmbed(embed);
 
 
 
-client.login("NTMwMDM5MDgzOTUxNDU2MjU3.Dw5k7A.R6QsxXyKhJ9Y-S7Hgu-R6Wxehg0");
+client.login(process.env.BOT_TOKEN);
