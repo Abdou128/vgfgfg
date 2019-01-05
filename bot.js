@@ -55,6 +55,9 @@ client.on('message', message => {
 
   - \`${prefix}bot\` : لي عرض معلومات البوت
 
+  - \`${prefix}قران\` :
+لي الاستماع الي قران
+
   **
     `
   ,`
@@ -1140,7 +1143,7 @@ client.on('message', message => {
           let command = msg.content.toLowerCase().split(" ")[0];
           command = command.slice(prefix.length)
         
-          if (command === `play`) {
+          if (command === `$$play`) {
             const voiceChannel = msg.member.voiceChannel;
             if (!voiceChannel) return msg.channel.send('يجب توآجد حضرتك بروم صوتي .');
             const permissions = voiceChannel.permissionsFor(msg.client.user);
@@ -1177,7 +1180,7 @@ client.on('message', message => {
                       .setDescription(`**الرجآء من حضرتك إختيآر رقم المقطع** :
         ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
         
-                  .setFooter("Hyped. | v0.1")
+                  .setFooter("Smile Bot")
                   msg.channel.sendEmbed(embed1).then(message =>{message.delete(20000)})
                   
                   // eslint-disable-next-line max-depth
@@ -1201,18 +1204,18 @@ client.on('message', message => {
         
               return handleVideo(video, msg, voiceChannel);
             }//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
-          } else if (command === `skip`) {
+          } else if (command === `$$skip`) {
             if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
             if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لتجآوزه');
             serverQueue.connection.dispatcher.end('تم تجآوز هذآ المقطع');
             return undefined;
-          } else if (command === `stop`) {//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
+          } else if (command === `$$stop`) {//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
             if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
             if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لإيقآفه');
             serverQueue.songs = [];
             serverQueue.connection.dispatcher.end('تم إيقآف هذآ المقطع');
             return undefined;
-          } else if (command === `vol`) {
+          } else if (command === `$$vol`) {
             if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
             if (!serverQueue) return msg.channel.send('لا يوجد شيء شغآل.');
             if (!args[1]) return msg.channel.send(`:loud_sound: مستوى الصوت **${serverQueue.volume}**`);
@@ -1224,7 +1227,7 @@ client.on('message', message => {
             const embedNP = new Discord.RichEmbed()
           .setDescription(`:notes: الان يتم تشغيل : **${serverQueue.songs[0].title}**`)
             return msg.channel.sendEmbed(embedNP);
-          } else if (command === `queue`) {
+          } else if (command === `$$queue`) {
             //by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
             if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
             let index = 0;
@@ -1235,14 +1238,14 @@ client.on('message', message => {
         ${serverQueue.songs.map(song => `**${++index} -** ${song.title}`).join('\n')}
         **الان يتم تشغيل** ${serverQueue.songs[0].title}`)
             return msg.channel.sendEmbed(embedqu);
-          } else if (command === `pause`) {
+          } else if (command === `$$pause`) {
             if (serverQueue && serverQueue.playing) {
               serverQueue.playing = false;
               serverQueue.connection.dispatcher.pause();
               return msg.channel.send('تم إيقاف الموسيقى مؤقتا!');
             }//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
             return msg.channel.send('لا يوجد شيء حالي ف العمل.');
-          } else if (command === "resume") {
+          } else if (command === "$$resume") {
             if (serverQueue && !serverQueue.playing) {
               serverQueue.playing = true;
               serverQueue.connection.dispatcher.resume();
@@ -1566,7 +1569,172 @@ message.channel.sendEmbed(embed);
 }
 });
 
+client.on('message', message => {
+	if(message.content.startsWith(prefix + 'قران')) {
+		message.delete();
+    const voiceChannel = message.member.voiceChannel;
+    if (!voiceChannel) return message.reply(`**يحب ان تكون في روم صوتي**`);
 
+	let embed = new Discord.RichEmbed()
+    .setAuthor(`${message.author.tag}`, message.author.avatarURL)
+	.setColor('#000000')
+	.setFooter("Smile Bot | صدقة جارية للجميع", 'https://e.top4top.net/p_1099h2qc51.jpg')
+      .setDescription(` 
+     🕋 اوامر بوت Smile Bot 🕋
+	 
+🇦 القرآن كاملاً ماهر المعيقلي
+🇧 سورة البقرة كاملة للشيخ مشاري ال��فاسي
+🇨 سورة الكهف كاملة بصوت مشارى بن راشد العفاسي
+⏹ لإيقاف القرآن الكريم
+🇩 القرآن كاملاً عبدالباسط عبدالصمد
+🇪 القرآن كاملاً ياسر الدوسري
+🇫 سورة الواقعه بصوت الشيخ مشاري بن راشد العفاسي`)
+	
+	message.channel.sendEmbed(embed).then(msg => {
+			msg.react('🇦')
+		.then(() => msg.react('🇧'))
+		.then(() => msg.react('🇨'))
+		.then(() => msg.react('⏹'))
+		.then(() => msg.react('🇩'))
+		.then(() => msg.react('🇪'))
+		.then(() => msg.react('🇫'))
+
+// Filters		
+	let filter1 = (reaction, user) => reaction.emoji.name === '🇦' && user.id === message.author.id;
+	let filter2 = (reaction, user) => reaction.emoji.name === '🇧' && user.id === message.author.id;
+	let filter3 = (reaction, user) => reaction.emoji.name === '🇨' && user.id === message.author.id;
+	let filter4 = (reaction, user) => reaction.emoji.name === '⏹' && user.id === message.author.id;
+	let filter5 = (reaction, user) => reaction.emoji.name === '🇩' && user.id === message.author.id;
+	let filter6 = (reaction, user) => reaction.emoji.name === '🇪' && user.id === message.author.id;
+	let filter7 = (reaction, user) => reaction.emoji.name === '🇫' && user.id === message.author.id;
+
+// Collectors
+	let collector1 = msg.createReactionCollector(filter1, { time: 120000 });
+	let collector2 = msg.createReactionCollector(filter2, { time: 120000 });
+	let collector3 = msg.createReactionCollector(filter3, { time: 120000 });
+	let collector4 = msg.createReactionCollector(filter4, { time: 120000 });
+	let collector5 = msg.createReactionCollector(filter5, { time: 120000 });
+	let collector6 = msg.createReactionCollector(filter6, { time: 120000 });
+	let collector7 = msg.createReactionCollector(filter7, { time: 120000 });
+	
+// Events
+collector1.on('collect', r => {
+    voiceChannel.join()
+      .then(connnection => {
+        const stream = ytdl("https://www.youtube.com/watch?v=Ktync4j_nmA", { filter: 'audioonly' });
+        const dispatcher = connnection.playStream(stream);
+        dispatcher.on('end', () => voiceChannel.leave());
+		collector1.stop();
+		collector2.stop();
+		collector3.stop();
+		collector4.stop();
+		collector5.stop();
+		collector6.stop();
+		collector7.stop();
+		embed.setDescription(`<@${message.author.id}> **تم تشغيل القرآن الكريم**`);
+		msg.edit(embed).then(msg.delete(5000));
+   });
+});
+collector2.on('collect', r => {
+    voiceChannel.join()
+      .then(connnection => {
+        const stream = ytdl("https://www.youtube.com/watch?v=qFq5h4wtjaM&t=30s", { filter: 'audioonly' });
+        const dispatcher = connnection.playStream(stream);
+        dispatcher.on('end', () => voiceChannel.leave());
+		collector1.stop();
+		collector2.stop();
+		collector3.stop();
+		collector4.stop();
+		collector5.stop();
+		collector6.stop();
+		collector7.stop();
+		embed.setDescription(`<@${message.author.id}> **تم تشغيل القرآن الكريم**`);
+		msg.edit(embed).then(msg.delete(5000));
+      });
+});
+collector3.on('collect', r => {
+    voiceChannel.join()
+      .then(connnection => {
+        const stream = ytdl("https://www.youtube.com/watch?v=8UWKiKGQmsE", { filter: 'audioonly' });
+        const dispatcher = connnection.playStream(stream);
+        dispatcher.on('end', () => voiceChannel.leave());
+		collector1.stop();
+		collector2.stop();
+		collector3.stop();
+		collector4.stop();
+		collector5.stop();
+		collector6.stop();
+		collector7.stop();
+		embed.setDescription(`<@${message.author.id}> **تم تشغيل القرآن الكريم**`);
+		msg.edit(embed).then(msg.delete(5000));
+      });
+});
+collector4.on('collect', r => {
+	if (message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
+		collector1.stop();
+		collector2.stop();
+		collector3.stop();
+		collector4.stop();
+		collector5.stop();
+		collector6.stop();
+		collector7.stop();
+		embed.setDescription(`<@${message.author.id}> **تم إيقاف القرآن الكريم**`);
+		msg.edit(embed).then(msg.delete(5000));
+});
+collector5.on('collect', r => {
+    voiceChannel.join()
+      .then(connnection => {
+        const stream = ytdl("https://www.youtube.com/watch?v=vqXLGtZcUm8", { filter: 'audioonly' });
+        const dispatcher = connnection.playStream(stream);
+        dispatcher.on('end', () => voiceChannel.leave());
+		collector1.stop();
+		collector2.stop();
+		collector3.stop();
+		collector4.stop();
+		collector5.stop();
+		collector6.stop();
+		collector7.stop();
+		embed.setDescription(`<@${message.author.id}> **تم تشغيل القرآن الكريم**`);
+		msg.edit(embed).then(msg.delete(5000));
+      });
+});
+collector6.on('collect', r => {
+    voiceChannel.join()
+      .then(connnection => {
+        const stream = ytdl("https://www.youtube.com/watch?v=WYT0pQne-7w", { filter: 'audioonly' });
+        const dispatcher = connnection.playStream(stream);
+        dispatcher.on('end', () => voiceChannel.leave());
+		collector1.stop();
+		collector2.stop();
+		collector3.stop();
+		collector4.stop();
+		collector5.stop();
+		collector6.stop();
+		collector7.stop();
+		embed.setDescription(`<@${message.author.id}> **تم تشغيل القرآن الكريم**`);
+		msg.edit(embed).then(msg.delete(5000));
+      });
+});
+collector7.on('collect', r => {
+    voiceChannel.join()
+      .then(connnection => {
+        const stream = ytdl("https://www.youtube.com/watch?v=LTRcg-gR78o", { filter: 'audioonly' });
+        const dispatcher = connnection.playStream(stream);
+        dispatcher.on('end', () => voiceChannel.leave());
+		collector1.stop();
+		collector2.stop();
+		collector3.stop();
+		collector4.stop();
+		collector5.stop();
+		collector6.stop();
+		collector7.stop();
+		embed.setDescription(`<@${message.author.id}> **تم تشغيل القرآن الكريم**`);
+		msg.edit(embed).then(msg.delete(5000));
+      });
+});
+})
+}
+});
 
 
 client.login(process.env.BOT_TOKEN);
