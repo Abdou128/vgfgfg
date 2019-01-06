@@ -34,10 +34,12 @@ client.user.setStatus("dnd")
 
 
 client.on('message', message => {
-  if (message.content.startsWith(prefix + 'help')) { //DiamondCodes - [ X_KillerYT ]
+  if (message.content.startsWith(prefix + 'help')) { 
       let pages = [`
   ***__وصف عن البوت__***
   **
+  لي تفعيل خصيه الترحيب 
+  welcome:اعمل روم باسم
   :gem:  البوت فيه كثير ميزات حلوة و جميلة
    ا:rocket: البوت يعمل قرابة 24 ساعة
    مبرمج البوت
@@ -200,6 +202,41 @@ client.on('message', message => {
           message.reply('تم ارساله بالخاص :white_check_mark: ');
       }
   });
+
+
+client.on('guildMemberAdd', member => {
+  const welcomer =  member.guild.channels.find('name', 'welcome');
+ if(!welcomer) return;
+   if(welcomer) {
+      moment.locale('ar-ly');
+      var m = member.user;
+     let yumz = new Discord.RichEmbed()
+     .setColor('RANDOM')
+     .setThumbnail(m.avatarURL)
+     .setAuthor(m.username,m.avatarURL)
+     .addField(': تاريخ دخولك الدسكورد',`${moment(member.user.createdAt).format('D/M/YYYY h:mm a')} **\n** \`${moment(member.user.createdAt).fromNow()}\``,true)            
+  
+      .setFooter(`${m.tag}`,"https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif")
+  welcomer.send({embed:yumz});          
+   }
+  });
+
+
+  client.on('guildMemberRemove', member => {
+    const welcomer =  member.guild.channels.find('name', 'welcome');
+   if(!welcomer) return;
+     if(welcomer) {
+        moment.locale('ar-ly');
+        var m = member.user;
+       let yumz = new Discord.RichEmbed()
+       .setColor('RANDOM')
+       .setThumbnail(m.avatarURL)
+       .setAuthor(m.username,m.avatarURL)
+       .setDescription(`Left The Server ❤️`)           
+       .setFooter(`${m.tag}`,"https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif")
+    welcomer.send({embed:yumz});          
+     }
+    });
 
 client.on('message', message => {
     const prefix = "@"
