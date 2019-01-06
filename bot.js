@@ -47,8 +47,6 @@ client.on('message', message => {
   **
    
   - \`${prefix}server\` : لعرض معلومات السيرفر
- 
-  - \`${prefix}skin\` : لعرض اسكنات ماين كرافت
 
   - \`${prefix}rank\` : لي معرف التفاعل حقق في السيرفر
 
@@ -1419,18 +1417,6 @@ client.on('message', message => {
           }
       });
 
-
-      client.on("message", message => {
-        if (!message.content.startsWith(prefix)) return;
-          let command = message.content.split(" ")[0];
-          command = command.slice(prefix.length);
-            if(command === "$$skin") {
-                    const args = message.content.split(" ").slice(1).join(" ")
-            if (!args) return message.channel.send("** Type your skin name **");
-            const image = new Discord.Attachment(`https://minecraft-skin-viewer.com/skin.php?u=${args}`, "skin.png");
-        message.channel.send(image)
-            }
-        });
 
         client.on('message', message => { 
           if (message.content.startsWith(prefix + 'emojis')) {
