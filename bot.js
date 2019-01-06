@@ -1544,7 +1544,7 @@ msg.delete();
 
 
 client.on('message', async message => {
-  if(message.content.startsWith(prefix + "bcall")) {
+  if(message.content.startsWith(prefix + "all")) {
     let i = client.users.size;
     if(message.author.id !== '432231487916736542') return message.channel.send('❎ » هذا الأمر مخصص لصاحب البوت فقط');
     var args = message.content.split(' ').slice(1).join(' ');
