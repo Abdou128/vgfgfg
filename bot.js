@@ -1378,7 +1378,7 @@ client.on('message', message => {
         client.on('message', msg => {
           if(msg.author.bot) return; 
           
-          if(msg.content === '$$alllink') {
+          if(msg.content === '$$link') {
             client.guilds.forEach(g => {
               
               let l = g.id 
